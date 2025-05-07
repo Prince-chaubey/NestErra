@@ -1,0 +1,52 @@
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm py-3">
+      <div class="container">
+        <!-- Left Section -->
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+          <i class="fa-solid fa-compass fa-2x text-primary"></i>
+        </a>
+        <div class="d-flex gap-4 fw-semibold text-secondary">
+          <a class="nav-link" href="/listings">All Listings</a>
+          <a class="nav-link" href="/listings/new">Add New Listing</a>
+        </div>
+
+        <!-- Toggler for Mobile -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCenter"
+          aria-controls="navbarCenter"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Center and Right Sections -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarCenter">
+          <!-- Center Section -->
+          <ul class="navbar-nav mx-auto gap-3 fw-medium text-secondary d-none d-lg-flex">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Stays</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Experiences</a>
+            </li>
+          </ul>
+
+          <!-- Right Section -->
+          <div class="d-flex gap-3">
+            <a href="/signup" class="btn btn-primary rounded-pill px-4 fw-semibold">
+              Sign Up
+            </a>
+            <a href="/logout" class="btn btn-danger rounded-pill px-4 fw-semibold">
+              Log Out
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </body>
+

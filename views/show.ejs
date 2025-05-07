@@ -1,0 +1,107 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                <div class="card listing-card shadow-lg border-0 overflow-hidden">
+                    <!-- Image with subtle overlay -->
+                    <div class="position-relative">
+                        <img 
+                            src="<%= list.image %>" 
+                            class="card-img-top listing-img img-fluid w-100" 
+                            alt="<%= list.title %>" 
+                            style="height: 500px; object-fit: cover;"
+                        >
+                        <div class="position-absolute bottom-0 start-0 w-100 p-4" style="background: linear-gradient(transparent, rgba(0,0,0,0.7));">
+                            <h2 class="card-title text-white mb-1"><%= list.title %></h2>
+                            <div class="d-flex align-items-center text-white">
+                                <i class="fas fa-map-marker-alt text-warning me-2"></i>
+                                <span class="fw-light"><%= list.location %>, <%= list.country %></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body px-4 py-4">
+                        <!-- Price badge -->
+                        <div class="d-flex justify-content-between align-items-start mb-4">
+                            <div class="bg-light px-3 py-2 rounded-pill">
+                                <span class="text-muted small">Starting from</span>
+                                <h3 class="text-primary mb-0">$<%= list.price %> <small class="text-muted fs-6">/night</small></h3>
+                            </div>
+                            
+                            <!-- Back button (mobile) -->
+                            <a href="/listings" class="btn btn-outline-secondary d-lg-none">
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <h5 class="text-dark mb-3">About this place</h5>
+                            <p class="card-text text-muted lh-lg"><%= list.description %></p>
+                        </div>
+
+                        <!-- Amenities placeholder (you can add actual amenities if available) -->
+                        <div class="mb-4">
+                            <h5 class="text-dark mb-3">Amenities</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark border py-2 px-3">
+                                    <i class="fas fa-wifi text-primary me-1"></i> WiFi
+                                </span>
+                                <span class="badge bg-light text-dark border py-2 px-3">
+                                    <i class="fas fa-parking text-primary me-1"></i> Parking
+                                </span>
+                                <span class="badge bg-light text-dark border py-2 px-3">
+                                    <i class="fas fa-utensils text-primary me-1"></i> Kitchen
+                                </span>
+                                <span class="badge bg-light text-dark border py-2 px-3">
+                                    <i class="fas fa-tv text-primary me-1"></i> TV
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Action buttons -->
+                        <div class="d-flex flex-column flex-lg-row gap-3 mt-4 pt-3 border-top">
+                            <a href="/listings/<%=list._id%>/edit" class="btn btn-primary btn-lg flex-grow-1">
+                                <i class="fas fa-edit me-2"></i> Edit Listing
+                            </a>
+                            <a href="/listings" class="btn btn-outline-secondary btn-lg d-none d-lg-block">
+                                <i class="fas fa-arrow-left me-2"></i> Back to Listings
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .listing-card {
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .listing-card:hover {
+            transform: translateY(-5px);
+        }
+        .listing-img {
+            transition: transform 0.5s ease;
+        }
+        .listing-card:hover .listing-img {
+            transform: scale(1.02);
+        }
+        .card-title {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .btn-primary {
+            background-color: #3a86ff;
+            border-color: #3a86ff;
+        }
+        .btn-primary:hover {
+            background-color: #2667cc;
+            border-color: #2667cc;
+        }
+    </style>
+</body>

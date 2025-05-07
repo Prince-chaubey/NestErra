@@ -1,0 +1,43 @@
+<% layout("layouts/boilerplate.ejs") %>
+<div class="container py-5">
+    <h2 class="mb-4 bg-primary text-white p-2 rounded"><i class="fas fa-edit me-2"></i>Edit Your Listing</h2>
+
+    <form action="/listings/<%= list._id %>?_method=PUT" method="POST">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" id="title" value="<%= list.title %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Image URL</label>
+        <input type="text" name="image" class="form-control" id="image" value="<%= list.image %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="description" class="form-control" id="description" rows="4" required><%= list.description %></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="price" class="form-label">Price (USD)</label>
+        <input type="number" name="price" class="form-control" id="price" value="<%= list.price %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" name="location" class="form-control" id="location" value="<%= list.location %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="country" class="form-label">Country</label>
+        <input type="text" name="country" class="form-control" id="country" value="<%= list.country %>" required>
+      </div>
+
+      <button type="submit" class="btn btn-success">
+        <i class="fas fa-save me-1"></i> Save Changes
+      </button>
+      <a href="/listings/<%= list._id %>" class="btn btn-outline-secondary ms-2">
+        Cancel
+      </a>
+    </form>
+  </div>
