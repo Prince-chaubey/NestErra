@@ -131,6 +131,21 @@ app.post(
     res.redirect(`/listings/${listing._id}`);
   })
 );
+//Route to delete the reviews for a particular Listings
+app.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res, next) => {
+  const { id, reviewId } = req.params;
+
+  const listing = await ListingModel.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+  if (!listing) {
+      return res.redirect('/listings');
+  }
+
+  await Review.findByIdAndDelete(reviewId);
+
+ 
+  res.redirect(`/listings/${id}`);
+}));
+
 
 // Global error handler
 app.use((err, req, res, next) => {
