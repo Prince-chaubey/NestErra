@@ -10,7 +10,8 @@ const sessions=require("express-session");
 const flash=require("express-flash");
 const passport=require("passport");
 const LocalStrategy=require("passport-local");
-const userModel=require("./Models/User.js");
+const userModel=require("./Models/UserModel.js");
+const userRoute=require("./Routes/userRoute.js");
 
 
 app.engine("ejs", engine);
@@ -59,6 +60,7 @@ app.use((req,res,next)=>{
 //Listing Routes fetched by Express-Routes
 app.use("/listings",listingRoute);
 app.use("/",reviewRoute);
+app.use("/",userRoute);
 
 
 // Global error handler
