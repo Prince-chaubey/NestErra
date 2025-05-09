@@ -39,7 +39,9 @@ main()
   .then(() => console.log("Database Initialized"))
   .catch((err) => console.log("Error", err));
 
-app.get("/", (req, res) => {
+app.get("/",
+  
+  (req, res) => {
   res.send("Hi I am Root!");
 });
 
@@ -54,6 +56,7 @@ passport.deserializeUser(userModel.deserializeUser());
 app.use((req,res,next)=>{
   res.locals.success=req.flash("success");
   res.locals.error=req.flash("error");
+  res.locals.currentUser=req.user;
   next();
 })
 

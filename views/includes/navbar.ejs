@@ -38,9 +38,11 @@
 
           <!-- Right Section -->
           <div class="d-flex gap-3">
-            <a href="/login" class="btn btn-primary rounded-pill px-4 fw-semibold">
+            <% if(!currentUser){ %>
+              <a href="/login" class="btn btn-primary rounded-pill px-4 fw-semibold">
               Log In
             </a>
+           <% } %>
             <a href="/logout" class="btn btn-danger rounded-pill px-4 fw-semibold">
               Log Out
             </a>

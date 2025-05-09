@@ -4,6 +4,7 @@ const ListingModel = require("../Models/Listing");
 const { validateListings } = require("../Models/schema");
 const ExpressError = require('../utils/expressError');
 const wrapAsync = require("../utils/wrapAsync");
+const { isLoggedIn } = require("../middlewares/middlewares");
 
 // Schema validation middleware
 const checkListings = (req, res, next) => {
@@ -25,8 +26,10 @@ router.get(
 );
 
 // Form to add new listing
-router.get("/new", (req, res) => {
-  res.render("newListing.ejs");
+router.get("/new",
+  isLoggedIn, 
+  (req, res) => { 
+    res.render("newListing.ejs");
 });
 
 // Create listing
@@ -59,6 +62,7 @@ router.get(
 // Delete a listing
 router.delete(
   "/:id",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     await ListingModel.findByIdAndDelete(id);
@@ -70,6 +74,7 @@ router.delete(
 // Edit form
 router.get(
   "/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     const list = await ListingModel.findById(id);

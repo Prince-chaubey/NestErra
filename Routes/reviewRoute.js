@@ -5,6 +5,7 @@ const { validateReviews } = require("../Models/schema");
 const ExpressError = require('../utils/expressError');
 const wrapAsync = require("../utils/wrapAsync");
 const Review = require("../Models/Review");
+const { isLoggedIn } = require("../middlewares/middlewares");
 
 // Middleware to validate reviews
 const checkReviews = (req, res, next) => {
@@ -20,6 +21,7 @@ const checkReviews = (req, res, next) => {
 router.post(
   "/listings/:id/reviews",
   checkReviews,
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     const listing = await ListingModel.findById(req.params.id);
     if (!listing) {
@@ -35,7 +37,9 @@ router.post(
 );
 
 // Delete a review from a listing
-router.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
+router.delete("/listings/:id/reviews/:reviewId",
+  isLoggedIn,
+  wrapAsync(async (req, res) => {
   const { id, reviewId } = req.params;
 
   const listing = await ListingModel.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
