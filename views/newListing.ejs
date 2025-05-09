@@ -9,56 +9,56 @@
         </div>
         <div class="card-body p-4">
           <form action="/listings/new" method="POST" class="needs-validation" novalidate>
+            
             <!-- Title -->
             <div class="mb-3">
               <label for="title" class="form-label fw-semibold">Title</label>
-              <input type="text" name="title" id="title" class="form-control" placeholder="Enter listing title" required>
+              <input type="text" name="listing[title]" id="title" class="form-control" placeholder="Enter listing title" required>
               <div class="invalid-feedback">Title is required.</div>
             </div>
 
             <!-- Description -->
             <div class="mb-3">
               <label for="description" class="form-label fw-semibold">Description</label>
-              <textarea name="description" id="description" class="form-control" rows="4" placeholder="Describe the listing" required></textarea>
+              <textarea name="listing[description]" id="description" class="form-control" rows="4" placeholder="Describe the listing" required></textarea>
               <div class="invalid-feedback">Description is required.</div>
             </div>
 
             <!-- Price -->
             <div class="mb-3">
               <label for="price" class="form-label fw-semibold">Price (per night)</label>
-              <input type="number" name="price" id="price" class="form-control" placeholder="e.g., 150" required min="1">
+              <input type="number" name="listing[price]" id="price" class="form-control" placeholder="e.g., 150" required min="1">
               <div class="invalid-feedback">Price is required and must be positive.</div>
             </div>
 
             <!-- Location -->
             <div class="mb-3">
               <label for="location" class="form-label fw-semibold">Location</label>
-              <input type="text" name="location" id="location" class="form-control" placeholder="City or Area" required>
+              <input type="text" name="listing[location]" id="location" class="form-control" placeholder="City or Area" required>
               <div class="invalid-feedback">Location is required.</div>
             </div>
 
             <!-- Country -->
             <div class="mb-3">
               <label for="country" class="form-label fw-semibold">Country</label>
-              <input type="text" name="country" id="country" class="form-control" placeholder="e.g., India" required>
+              <input type="text" name="listing[country]" id="country" class="form-control" placeholder="e.g., India" required>
               <div class="invalid-feedback">Country is required.</div>
             </div>
 
             <!-- Image -->
             <div class="mb-4">
               <label for="image" class="form-label fw-semibold">Image URL</label>
-              <input type="url" name="image" id="image" class="form-control" placeholder="Paste image URL" required>
+              <input type="url" name="listing[image]" id="image" class="form-control" placeholder="Paste image URL" required>
               <div class="invalid-feedback">Valid image URL is required.</div>
             </div>
 
             <!-- Submit Button -->
             <div class="text-center">
               <button type="submit" class="btn btn-success px-4 fw-bold">
-              
                 <i class="fas fa-plus-circle me-2"></i>Add Listing
-              
               </button>
             </div>
+
           </form>
         </div>
       </div>
