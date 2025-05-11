@@ -5,6 +5,7 @@ const { validateReviews } = require("../Models/schema");
 const ExpressError = require('../utils/expressError');
 const wrapAsync = require("../utils/wrapAsync");
 const Review = require("../Models/Review");
+const { isLoggedIn, isAuthor } = require("../middlewares/middlewares");
 
 // Middleware to validate reviews
 const checkReviews = (req, res, next) => {
@@ -26,7 +27,9 @@ router.post(
       throw new ExpressError(404, "Listing not found");
     }
     if(req.isAuthenticated()){
-      const newReview = new Review(req.body.reviews);
+    const newReview = new Review(req.body.reviews);
+    newReview.author=req.user._id;
+    //console.log(newReview.author);
     listing.reviews.push(newReview);
     await newReview.save();
     await listing.save();
@@ -37,7 +40,10 @@ router.post(
 );
 
 // Delete a review from a listing
-router.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
+router.delete("/listings/:id/reviews/:reviewId",
+  isLoggedIn,
+  isAuthor,
+  wrapAsync(async (req, res) => {
   const { id, reviewId } = req.params;
 
   const listing = await ListingModel.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });

@@ -50,7 +50,12 @@ router.get(
   "/:id",
   wrapAsync(async (req, res, next) => {
     const { id } = req.params;
-    const list = await ListingModel.findById(id).populate("owner").populate("reviews");
+    const list = await ListingModel.findById(id).populate("owner").populate({
+      path:"reviews",
+      populate:{
+        path:"author",
+      }
+    });
 
     if (!list) {
       return next(new ExpressError(404, "Listing not found"));

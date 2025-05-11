@@ -99,7 +99,8 @@
         </div>
       </div>
     </div>
-
+     
+    <% if(currentUser) { %>
     <!-- Review Form -->
     <div class="row justify-content-center mt-5">
       <div class="col-lg-10 col-xl-8">
@@ -161,6 +162,7 @@
         </div>
       </div>
     </div>
+    <% } %>
 
     <!-- All Reviews Section -->
     <div class="reviews-section mt-2">
@@ -183,11 +185,8 @@
               
                 <p class="mb-1 text-dark fs-6"><%= review.comment %></p>
                
-          
-
               <!-- Delete Button (if owner) -->
-              <% if (currentUser && currentUser._id &&
-              currentUser._id.equals(list.owner._id)) { %>
+              <% if (currentUser && currentUser._id && currentUser._id.equals(review.author._id)) { %>
               <form
                 action="/listings/<%= list.id %>/reviews/<%= review._id %>?_method=DELETE"
                 method="POST"
@@ -210,6 +209,7 @@
                 <%= new Date(review.createdAt).toLocaleString() %>
               </small>
             </div>
+             <p class="fw-semibold text-primary-emphasis fst-italic m-2 text-end">@<%= review.author.username %></p>
           </div>
         </div>
         <% } %>
