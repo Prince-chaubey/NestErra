@@ -1,237 +1,265 @@
 <% layout("layouts/boilerplate.ejs") %>
 
 <body>
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-10 col-xl-8">
-                <div class="card listing-card shadow-lg border-0 overflow-hidden">
-                    <!-- Image with subtle overlay -->
-                    <div class="position-relative">
-                        <img 
-                            src="<%= list.image %>" 
-                            class="card-img-top listing-img img-fluid w-100" 
-                            alt="<%= list.title %>" 
-                            style="height: 500px; object-fit: cover;"
-                        >
-                        <div class="position-absolute bottom-0 start-0 w-100 p-4" style="background: linear-gradient(transparent, rgba(0,0,0,0.7));">
-                            <h2 class="card-title text-white mb-1"><%= list.title %></h2>
-                            <div class="d-flex align-items-center text-white">
-                                <i class="fas fa-map-marker-alt text-warning me-2"></i>
-                                <span class="fw-light"><%= list.location %>, <%= list.country %></span>
-                            </div>
-                        </div>
-                    </div>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-xl-8">
+        <div class="card listing-card shadow-lg border-0 overflow-hidden">
+          <!-- Image with subtle overlay -->
+          <div class="position-relative">
+            <img
+              src="<%= list.image %>"
+              class="card-img-top listing-img img-fluid w-100"
+              alt="<%= list.title %>"
+              style="height: 500px; object-fit: cover"
+            />
 
-                    <div class="card-body px-4 py-4">
-                        <!-- Price badge -->
-                        <div class="d-flex justify-content-between align-items-start mb-4">
-                            <div class="bg-light px-3 py-2 rounded-pill">
-                                <span class="text-muted small">Starting from</span>
-                                <h3 class="text-primary mb-0">$<%= list.price %> <small class="text-muted fs-6">/night</small></h3>
-                            </div>
-                            
-                            <!-- Back button (mobile) -->
-                            <a href="/listings" class="btn btn-outline-secondary d-lg-none">
-                                <i class="fas fa-arrow-left"></i>
-                            </a>
-                        </div>
+            <div
+              class="position-absolute bottom-0 start-0 w-100 p-4"
+              style="
+                background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+              "
+            >
+              <h2 class="card-title text-white mb-1"><%= list.title %></h2>
 
-                        <!-- Description -->
-                        <div class="mb-4">
-                            <h5 class="text-dark mb-3">About this place</h5>
-                            <p class="card-text text-muted lh-lg"><%= list.description %></p>
-                        </div>
-
-                        <!-- Amenities -->
-                        <div class="mb-4">
-                            <h5 class="text-dark mb-3">Amenities</h5>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="badge bg-light text-dark border py-2 px-3">
-                                    <i class="fas fa-wifi text-primary me-1"></i> WiFi
-                                </span>
-                                <span class="badge bg-light text-dark border py-2 px-3">
-                                    <i class="fas fa-parking text-primary me-1"></i> Parking
-                                </span>
-                                <span class="badge bg-light text-dark border py-2 px-3">
-                                    <i class="fas fa-utensils text-primary me-1"></i> Kitchen
-                                </span>
-                                <span class="badge bg-light text-dark border py-2 px-3">
-                                    <i class="fas fa-tv text-primary me-1"></i> TV
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Action buttons -->
-                        <div class="d-flex flex-column flex-lg-row gap-3 mt-4 pt-3 border-top">
-                            <a href="/listings/<%=list._id%>/edit" class="btn btn-primary btn-lg flex-grow-1">
-                                <i class="fas fa-edit me-2"></i> Edit Listing
-                            </a>
-                            <a href="/listings" class="btn btn-outline-secondary btn-lg d-none d-lg-block">
-                                <i class="fas fa-arrow-left me-2"></i> Back to Listings
-                            </a>
-                        </div>
-                    </div>
-                </div>
+              <div class="d-flex align-items-center text-white">
+                <i class="fas fa-map-marker-alt text-warning me-2"></i>
+                <span class="fw-light"
+                  ><%= list.location %>, <%= list.country %></span
+                >
+              </div>
             </div>
-        </div>
+          </div>
+          <p class="fw-semibold text-primary-emphasis fst-italic m-2 ">
+            Owned by:<i class="bi bi-person-circle me-1"></i>@<%= list.owner.username %>
+          </p>
+          <div class="card-body px-4 py-4">
+            <!-- Price badge -->
+            <div class="d-flex justify-content-between align-items-start mb-4">
+              <div class="bg-light px-3 py-2 rounded-pill">
+                <span class="text-muted small">Starting from</span>
+                <h3 class="text-primary mb-0">
+                  $<%= list.price %>
+                  <small class="text-muted fs-6">/night</small>
+                </h3>
+              </div>
 
-        <!-- Review Form -->
-        <div class="row justify-content-center mt-5">
-            <div class="col-lg-10 col-xl-8">
-                <div class="card shadow-sm border-0" style="border-radius: 16px;">
-                    <div class="card-body p-4 p-lg-5">
-                        <h4 class="text-dark mb-4">
-                            <i class="fas fa-pen-alt text-primary me-2"></i> Leave a Review
-                        </h4>
-
-                        <form action="/listings/<%=list._id%>/reviews" method="POST">
-                            <!-- Rating Input (Numeric) -->
-                            <div class="mb-4">
-                                <label for="rating" class="form-label fw-semibold">Rating (1-5)</label>
-                                <div class="input-group" style="max-width: 200px;">
-                                    <span class="input-group-text bg-light">
-                                        <i class="fas fa-star text-warning"></i>
-                                    </span>
-                                    <input 
-                                        type="number" 
-                                        name="reviews[rating]" 
-                                        id="rating" 
-                                        class="form-control border-2 py-3 px-3"
-                                        min="1" 
-                                        max="5" 
-                                        placeholder="1-5"
-                                        style="border-radius: 0 8px 8px 0;"
-                                        required
-                                    >
-                                </div>
-                                <small class="text-muted">1 = Poor, 5 = Excellent</small>
-                            </div>
-
-                            <!-- Comment Input -->
-                            <div class="mb-4">
-                                <label for="comment" class="form-label fw-semibold">Your Review</label>
-                                <textarea 
-                                    name="reviews[comment]" 
-                                    id="comment" 
-                                    class="form-control border-2 p-3" 
-                                    rows="5"
-                                    style="border-radius: 12px; min-height: 150px;"
-                                    placeholder="Share your experience... What did you like? What could be improved?"
-                                    required
-                                ></textarea>
-                            </div>
-
-                            <!-- Submit Button -->
-                            <div class="d-flex justify-content-end mt-3">
-                                <button type="submit" class="btn btn-primary btn-lg px-4">
-                                    <i class="fas fa-paper-plane me-2"></i> Submit Review
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+              <!-- Back button (mobile) -->
+              <a href="/listings" class="btn btn-outline-secondary d-lg-none">
+                <i class="fas fa-arrow-left"></i>
+              </a>
             </div>
-        </div>
 
-        <!-- All Reviews Section -->
-        <div class="reviews-section mt-2">
-            <h4 class="section-title mb-4">
-                <i class="fas fa-comments text-primary me-2"></i> All Reviews
-            </h4>
-            
-            <% if(list.reviews.length === 0) { %>
-                <div class="empty-reviews alert alert-light text-center py-4">
-                    <i class="far fa-comment-alt fa-2x text-muted mb-2"></i>
-                    <p class="mb-0 text-muted">No reviews yet</p>
-                </div>
-            <% } else { %>
-                <div class="reviews-list">
-                    <% for(let review of list.reviews) { %>
-                        <div class="review-item card mb-3 border-0 shadow-sm">
-                            <div class="card-body p-3">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <p class="review-text mb-0"><%= review.comment %></p>
-                                    <form action="/listings/<%=list.id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
-                                        <button class="btn btn-sm btn-link text-danger p-0">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                     </form>
-                                </div>
-                                <small class="text-muted d-block mt-2">
-                                    <i class="far fa-clock me-1"></i>
-                                    <%= new Date(review.createdAt).toLocaleString() %>
-                                </small>
-                            </div>
-                        </div>
-                    <% } %>
-                </div>
-            <% } %>
+            <!-- Description -->
+            <div class="mb-4">
+              <h5 class="text-dark mb-3">About this place</h5>
+              <p class="card-text text-muted lh-lg"><%= list.description %></p>
+            </div>
+
+            <!-- Amenities -->
+            <div class="mb-4">
+              <h5 class="text-dark mb-3">Amenities</h5>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge bg-light text-dark border py-2 px-3">
+                  <i class="fas fa-wifi text-primary me-1"></i> WiFi
+                </span>
+                <span class="badge bg-light text-dark border py-2 px-3">
+                  <i class="fas fa-parking text-primary me-1"></i> Parking
+                </span>
+                <span class="badge bg-light text-dark border py-2 px-3">
+                  <i class="fas fa-utensils text-primary me-1"></i> Kitchen
+                </span>
+                <span class="badge bg-light text-dark border py-2 px-3">
+                  <i class="fas fa-tv text-primary me-1"></i> TV
+                </span>
+              </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div
+              class="d-flex flex-column flex-lg-row gap-3 mt-4 pt-3 border-top"
+            >
+              <a
+                href="/listings/<%=list._id%>/edit"
+                class="btn btn-primary btn-lg flex-grow-1"
+              >
+                <i class="fas fa-edit me-2"></i> Edit Listing
+              </a>
+              <a
+                href="/listings"
+                class="btn btn-outline-secondary btn-lg d-none d-lg-block"
+              >
+                <i class="fas fa-arrow-left me-2"></i> Back to Listings
+              </a>
+            </div>
+          </div>
         </div>
-        
+      </div>
     </div>
 
-    <style>
-        .listing-card {
-            border-radius: 16px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-        .listing-card:hover {
-            transform: translateY(-5px);
-        }
-        .listing-img {
-            transition: transform 0.5s ease;
-        }
-        .listing-card:hover .listing-img {
-            transform: scale(1.02);
-        }
-        .card-title {
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        .btn-primary {
-            background-color: #3a86ff;
-            border-color: #3a86ff;
-        }
-        .btn-primary:hover {
-            background-color: #2667cc;
-            border-color: #2667cc;
-        }
-        .badge {
-            border-radius: 12px;
-        }
-        .card-body {
-            padding: 1.5rem;
-        }
-        .container {
-            max-width: 1200px;
-        }
-        .reviews-section {
-        background: white;
-        border-radius: 12px;
-        padding: 20px;
-        width: 65%;
-        margin: 0 auto;
+    <!-- Review Form -->
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-10 col-xl-8">
+        <div class="card shadow-sm border-0" style="border-radius: 16px">
+          <div class="card-body p-4 p-lg-5">
+            <h4 class="text-dark mb-4">
+              <i class="fas fa-pen-alt text-primary me-2"></i> Leave a Review
+            </h4>
+
+           <form action="/listings/<%= list._id %>/reviews" method="POST">
+              <!-- Rating Input (Numeric) -->
+              <div class="mb-4">
+                <label for="rating" class="form-label fw-semibold"
+                  >Rating (1-5)</label
+                >
+                <div class="input-group" style="max-width: 200px">
+                  <span class="input-group-text bg-light">
+                    <i class="fas fa-star text-warning"></i>
+                  </span>
+                  <input
+                    type="number"
+                    name="reviews[rating]"
+                    id="rating"
+                    class="form-control border-2 py-3 px-3"
+                    min="1"
+                    max="5"
+                    placeholder="1-5"
+                    style="border-radius: 0 8px 8px 0"
+                    required
+                  />
+                </div>
+                <small class="text-muted">1 = Poor, 5 = Excellent</small>
+              </div>
+
+              <!-- Comment Input -->
+              <div class="mb-4">
+                <label for="comment" class="form-label fw-semibold"
+                  >Your Review</label
+                >
+                <textarea
+                  name="reviews[comment]"
+                  id="comment"
+                  class="form-control border-2 p-3"
+                  rows="5"
+                  style="border-radius: 12px; min-height: 150px"
+                  placeholder="Share your experience... What did you like? What could be improved?"
+                  required
+                ></textarea>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="d-flex justify-content-end mt-3">
+                <button type="submit" class="btn btn-primary btn-lg px-4">
+                  <i class="fas fa-paper-plane me-2"></i> Submit Review
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Reviews Section -->
+    <div class="reviews-section mt-2">
+      <h4 class="section-title mb-4">
+        <i class="fas fa-comments text-primary me-2"></i> All Reviews
+      </h4>
+
+      <% if(list.reviews.length === 0) { %>
+      <div class="empty-reviews alert alert-light text-center py-4">
+        <i class="far fa-comment-alt fa-2x text-muted mb-2"></i>
+        <p class="mb-0 text-muted">No reviews yet</p>
+      </div>
+      <% } else { %>
+      <div class="reviews-list">
+        <% for(let review of list.reviews) { %>
+        <div class="review-item card mb-3 border-0 shadow-sm">
+          <div class="card-body p-3">
+            <div class="d-flex justify-content-between align-items-start">
+              <p class="review-text mb-0"><%= review.comment %></p>
+              <form
+                action="/listings/<%=list.id%>/reviews/<%=review._id%>?_method=DELETE"
+                method="POST"
+              >
+                <button class="btn btn-sm btn-link text-danger p-0">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </form>
+            </div>
+            <small class="text-muted d-block mt-2">
+              <i class="far fa-clock me-1"></i>
+              <%= new Date(review.createdAt).toLocaleString() %>
+            </small>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+
+  <style>
+    .listing-card {
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .listing-card:hover {
+      transform: translateY(-5px);
+    }
+    .listing-img {
+      transition: transform 0.5s ease;
+    }
+    .listing-card:hover .listing-img {
+      transform: scale(1.02);
+    }
+    .card-title {
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .btn-primary {
+      background-color: #3a86ff;
+      border-color: #3a86ff;
+    }
+    .btn-primary:hover {
+      background-color: #2667cc;
+      border-color: #2667cc;
+    }
+    .badge {
+      border-radius: 12px;
+    }
+    .card-body {
+      padding: 1.5rem;
+    }
+    .container {
+      max-width: 1200px;
+    }
+    .reviews-section {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      width: 65%;
+      margin: 0 auto;
     }
     .section-title {
-        font-weight: 600;
-        color: #333;
+      font-weight: 600;
+      color: #333;
     }
     .review-item {
-        border-radius: 8px;
-        transition: all 0.2s ease;
+      border-radius: 8px;
+      transition: all 0.2s ease;
     }
     .review-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     }
     .review-text {
-        line-height: 1.6;
-        color: #444;
+      line-height: 1.6;
+      color: #444;
     }
     .empty-reviews {
-        border-radius: 8px;
-        border: 1px dashed #ddd;
+      border-radius: 8px;
+      border: 1px dashed #ddd;
     }
-    </style>
+  </style>
 </body>

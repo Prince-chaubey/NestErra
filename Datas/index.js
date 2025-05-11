@@ -10,7 +10,11 @@ main().then(()=>console.log("Database Intialised")).catch((err)=>console.log("Er
 
 const initializeDB=async ()=>{
     await ListingModel.deleteMany({});
-    await ListingModel.insertMany(initData.data);
+    const newData=initData.data.map((data)=>{
+        return {...data,owner:"681e5f033ca3c8ccc4adbeaf"};
+    })
+    await ListingModel.insertMany(newData);
+
     console.log("Data Inserted");
 }
 initializeDB();

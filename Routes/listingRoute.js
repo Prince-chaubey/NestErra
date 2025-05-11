@@ -49,7 +49,7 @@ router.get(
   "/:id",
   wrapAsync(async (req, res, next) => {
     const { id } = req.params;
-    const list = await ListingModel.findById(id).populate("reviews");
+    const list = await ListingModel.findById(id).populate("reviews").populate("owner");
 
     if (!list) {
       return next(new ExpressError(404, "Listing not found"));
@@ -88,7 +88,9 @@ router.put(
   checkListings,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    await ListingModel.findByIdAndUpdate(id, req.body, { new: true }); 
+    console.log(req.body);
+    await ListingModel.findByIdAndUpdate(id, req.body.listing, { new: true }); 
+    req.flash("success","Listing edited successfully!");
     res.redirect(`/listings/${id}`);
   })
 );
