@@ -1,3 +1,5 @@
+const ListingModel = require("../Models/Listing");
+
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.redirectURL = req.originalUrl;
@@ -16,3 +18,21 @@ module.exports.saveRedirectUrl = (req, res, next) => {
     }
     next();
 };
+
+module.exports.isOwner = async (req, res, next) => {
+    const { id } = req.params;  
+    const listing = await ListingModel.findById(id);
+
+    if (!listing) {
+        req.flash("error", "Listing not found.");
+        return res.redirect("/listings");
+    }
+
+    if (!listing.owner._id.equals(res.locals.currentUser._id)) {
+        req.flash("error", "You don't have permission for it!");
+        return res.redirect("/listings");
+    }
+
+    next();
+};
+

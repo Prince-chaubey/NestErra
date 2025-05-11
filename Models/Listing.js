@@ -25,7 +25,7 @@ const ListingSchema=new Schema({
     ,
     owner:{
         type:Schema.Types.ObjectId,
-        ref:"userModel"
+        ref:"User"
     }
 })
 

@@ -4,7 +4,7 @@ const ListingModel = require("../Models/Listing");
 const { validateListings } = require("../Models/schema");
 const ExpressError = require('../utils/expressError');
 const wrapAsync = require("../utils/wrapAsync");
-const { isLoggedIn } = require("../middlewares/middlewares");
+const { isLoggedIn, isOwner } = require("../middlewares/middlewares");
 
 // Schema validation middleware
 const checkListings = (req, res, next) => {
@@ -38,6 +38,7 @@ router.post(
   checkListings,
   wrapAsync(async (req, res) => {
     const newListing = new ListingModel(req.body.listing);
+    newListing.owner=req.user._id;
     req.flash("success","New Listing Created!");
     await newListing.save();
     res.redirect("/listings");
@@ -49,7 +50,7 @@ router.get(
   "/:id",
   wrapAsync(async (req, res, next) => {
     const { id } = req.params;
-    const list = await ListingModel.findById(id).populate("reviews").populate("owner");
+    const list = await ListingModel.findById(id).populate("owner").populate("reviews");
 
     if (!list) {
       return next(new ExpressError(404, "Listing not found"));
@@ -63,6 +64,7 @@ router.get(
 router.delete(
   "/:id",
   isLoggedIn,
+  isOwner,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     await ListingModel.findByIdAndDelete(id);
@@ -75,6 +77,7 @@ router.delete(
 router.get(
   "/:id/edit",
   isLoggedIn,
+  isOwner,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     const list = await ListingModel.findById(id);
@@ -85,10 +88,12 @@ router.get(
 // Update listing
 router.put(
   "/:id",
+  isLoggedIn,
+  isOwner,
   checkListings,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    console.log(req.body);
+    // console.log(req.body);
     await ListingModel.findByIdAndUpdate(id, req.body.listing, { new: true }); 
     req.flash("success","Listing edited successfully!");
     res.redirect(`/listings/${id}`);

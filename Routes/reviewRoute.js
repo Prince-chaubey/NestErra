@@ -25,13 +25,14 @@ router.post(
     if (!listing) {
       throw new ExpressError(404, "Listing not found");
     }
-    console.log(req.body);
-
-    const newReview = new Review(req.body.reviews);
+    if(req.isAuthenticated()){
+      const newReview = new Review(req.body.reviews);
     listing.reviews.push(newReview);
     await newReview.save();
     await listing.save();
     res.redirect(`/listings/${listing._id}`);
+    }
+    else return res.redirect("/login");
   })
 );
 

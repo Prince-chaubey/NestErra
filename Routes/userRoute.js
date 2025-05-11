@@ -19,7 +19,7 @@ router.post("/signup", async (req, res, next) => {
         req.login(registeredUser, (err) => {
             if (err) return next(err);
             req.flash("success", `${username}, welcome to NextErra!`);
-            res.redirect("/");
+            res.redirect("/login");
         });
     } catch (err) {
         req.flash("error", err.message);
