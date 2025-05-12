@@ -10,6 +10,7 @@ const methodOverride = require("method-override");
 const listingRoute=require("./Routes/listingRoute");
 const reviewRoute=require("./Routes/reviewRoute");
 const sessions=require("express-session");
+const mongoStore=require("connect-mongo");
 const flash=require("express-flash");
 const passport=require("passport");
 const LocalStrategy=require("passport-local");
@@ -24,8 +25,29 @@ app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
+  const url=process.env.ATLAS_DB;
+
+async function main() {
+  await mongoose.connect(url);
+}
+main()
+  .then(() => console.log("Database Initialized"))
+  .catch((err) => console.log("Error", err));
+
+const store=mongoStore.create({
+  mongoUrl:url,
+  crypto:{
+    secret:process.env.SECRET,
+  },
+  touchAfter:24*3600,
+})
+
+store.on("error",()=>{
+  console.log("ERROR in MONGO SESSION STORE",err);
+})
 const sessionOptions={
-  secret:"secretCode",
+  store,
+  secret:process.env.SECRET,
   resave:false,
   saveUninitialized:true,
   Cookie:{
@@ -35,12 +57,8 @@ const sessionOptions={
   }
 };
 
-async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/nexterra");
-}
-main()
-  .then(() => console.log("Database Initialized"))
-  .catch((err) => console.log("Error", err));
+
+
 
 app.get("/", (req, res) => {
   res.redirect("/listings");

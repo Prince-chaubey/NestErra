@@ -1,4 +1,9 @@
 {
+  
+  "engines": {
+    "node": "22.13.1"
+  },
+
   "name": "nesterra",
   "version": "1.0.0",
   "description": "",
@@ -11,6 +16,7 @@
   },
   "dependencies": {
     "cloudinary": "^1.30.0",
+    "connect-mongo": "^5.1.0",
     "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",

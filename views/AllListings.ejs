@@ -1,7 +1,51 @@
 <% layout("layouts/boilerplate.ejs") %>
 
 <body class="bg-light font-inter min-vh-100">
-  <div class="container py-5">
+<div class="container border-bottom py-2 d-flex justify-content-center filter">
+  <div class="d-flex filter-scroll gap-4">
+    <div class="filter-icon active">
+      <i class="fas fa-image"></i><br>
+      Amazing views
+    </div>
+    <div class="filter-icon">
+      <i class="fas fa-tractor"></i><br>
+      Farms
+    </div>
+    <div class="filter-icon">
+      <i class="fas fa-swimming-pool"></i><br>
+      Amazing pools
+    </div>
+    <div class="filter-icon">
+      <i class="fas fa-mountain"></i><br>
+      Caves
+    </div>
+    <div class="filter-icon">
+      <i class="fas fa-campground"></i><br>
+      Camping
+    </div>
+    <div class="filter-icon">
+      <i class="fas fa-rocket"></i><br>
+      OMG!
+    </div>
+    <div class="filter-icon">
+      <i class="fas fa-home"></i><br>
+      Cabins
+    </div>
+    <div class="filter-icon">
+      <i class="fas fa-chess-rook"></i><br>
+      Castles
+    </div>
+    <div class="filter-icon">
+      <i class="fas fa-bed"></i><br>
+      Rooms
+    </div>
+    <div class="filter-icon">
+      <i class="fas fa-landmark"></i><br>
+      Mansions
+    </div>
+  </div>
+</div>
+  <div class="container py-5 listings">
     <!-- Page Header -->
     <div class="text-center mb-5">
       <h1 class="display-4 fw-bold text-dark">🌍 Explore NestErra</h1>
@@ -63,3 +107,32 @@
     </div>
   </div>
 </body>
+<style>
+  
+    .filter{
+      margin-top: 100px;
+    }
+    .filter-icon {
+      text-align: center;
+      min-width: 80px;
+      padding: 10px;
+      cursor: pointer;
+      color: #555;
+      transition: all 0.3s;
+    }
+
+    .filter-icon:hover{
+      color: #000;
+      font-weight: bold;
+    }
+
+    .filter-icon i {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    .filter-scroll {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+</style>
