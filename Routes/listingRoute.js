@@ -8,11 +8,20 @@ const { isLoggedIn, isOwner } = require("../middlewares/middlewares");
 const listingController=require("../Controllers/listingControllers");
 
 router.get("/", wrapAsync(listingController.getAllListings));
-router.get("/new", isLoggedIn, listingController.renderNewForm);
-router.post("/new", listingController.checkListings, wrapAsync(listingController.createListing));
-router.get("/:id", wrapAsync(listingController.showListing));
-router.delete("/:id", isLoggedIn, isOwner, wrapAsync(listingController.deleteListing));
+
+router.route("/new")
+.get(isLoggedIn, listingController.renderNewForm)
+.post(listingController.checkListings, wrapAsync(listingController.createListing));
+
+
+router.route("/:id")
+.get(wrapAsync(listingController.showListing))
+.delete(isLoggedIn, isOwner, wrapAsync(listingController.deleteListing))
+.put(isLoggedIn, isOwner, listingController.checkListings, wrapAsync(listingController.updateListing));
+
+
 router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(listingController.renderEditForm));
-router.put("/:id", isLoggedIn, isOwner, listingController.checkListings, wrapAsync(listingController.updateListing));
+
+
 
 module.exports = router;

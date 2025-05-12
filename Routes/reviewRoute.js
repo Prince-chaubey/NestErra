@@ -9,15 +9,13 @@ const { isLoggedIn, isAuthor } = require("../middlewares/middlewares");
 const reviewController=require("../Controllers/reviewController");
 
 // Create Review
-router.post(
-  "/listings/:id/reviews",
+router.route("/listings/:id/reviews").post(
   reviewController.checkReviews,
   wrapAsync(reviewController.createReview)
 );
 
 // Delete Review
-router.delete(
-  "/listings/:id/reviews/:reviewId",
+router.route("/listings/:id/reviews/:reviewId").delete(
   isLoggedIn,
   isAuthor,
   wrapAsync(reviewController.deleteReview)
