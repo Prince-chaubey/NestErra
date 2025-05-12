@@ -8,7 +8,7 @@
           <h2 class="mb-0 fw-bold">📝 Create a New Listing</h2>
         </div>
         <div class="card-body p-4">
-          <form action="/listings/new" method="POST" class="needs-validation" novalidate>
+          <form action="/listings/new" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate >
             
             <!-- Title -->
             <div class="mb-3">
@@ -47,9 +47,9 @@
 
             <!-- Image -->
             <div class="mb-4">
-              <label for="image" class="form-label fw-semibold">Image URL</label>
-              <input type="url" name="listing[image]" id="image" class="form-control" placeholder="Paste image URL" required>
-              <div class="invalid-feedback">Valid image URL is required.</div>
+              <label for="image" class="form-label fw-semibold">Upload Image</label>
+              <input type="file" name="listing[image]" id="image" class="form-control" placeholder="Paste image URL" required>
+              <div class="invalid-feedback">Valid image file is required.</div>
             </div>
 
             <!-- Submit Button -->

@@ -8,8 +8,8 @@
           <!-- Image with subtle overlay -->
           <div class="position-relative">
             <img
-              src="<%= list.image %>"
-              class="card-img-top listing-img img-fluid w-100"
+              src="<%= list.image.url %>"
+              class="card-img-top listing-img img w-100"
               alt="<%= list.title %>"
               style="height: 500px; object-fit: cover"
             />
@@ -219,10 +219,7 @@
               <!-- Review Content -->
 
               <div class="">
-                <p
-                  class="starability-result"
-                  data-rating="<%=review.rating %>"
-                ></p>
+                <p class="starability-result" data-rating="<%=review.rating %>"></p>
                 <p class="mb-1 text-dark fs-4"><%= review.comment %></p>
               </div>
               <!-- Delete Button (if owner) -->

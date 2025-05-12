@@ -6,18 +6,33 @@ const ExpressError = require('../utils/expressError');
 const wrapAsync = require("../utils/wrapAsync");
 const { isLoggedIn, isOwner } = require("../middlewares/middlewares");
 const listingController=require("../Controllers/listingControllers");
+const multer = require('multer');
+const {storage,cloudinary}=require("../cloudConfig");
+
+const upload = multer({storage});
+
 
 router.get("/", wrapAsync(listingController.getAllListings));
 
 router.route("/new")
 .get(isLoggedIn, listingController.renderNewForm)
-.post(listingController.checkListings, wrapAsync(listingController.createListing));
+ .post(listingController.checkListings,
+  upload.single('listing[image]'),
+  wrapAsync(listingController.createListing)
+);
+
 
 
 router.route("/:id")
 .get(wrapAsync(listingController.showListing))
 .delete(isLoggedIn, isOwner, wrapAsync(listingController.deleteListing))
-.put(isLoggedIn, isOwner, listingController.checkListings, wrapAsync(listingController.updateListing));
+.put(
+    isLoggedIn,
+    isOwner,
+    listingController.checkListings,
+    upload.single('listing[image]'),
+    wrapAsync(listingController.updateListing)
+);
 
 
 router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(listingController.renderEditForm));
