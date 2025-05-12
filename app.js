@@ -42,10 +42,8 @@ main()
   .then(() => console.log("Database Initialized"))
   .catch((err) => console.log("Error", err));
 
-app.get("/",
-  
-  (req, res) => {
-  res.send("Hi I am Root!");
+app.get("/", (req, res) => {
+  res.redirect("/listings");
 });
 
 app.use(sessions(sessionOptions));

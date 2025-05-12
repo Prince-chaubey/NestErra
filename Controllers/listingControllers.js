@@ -82,6 +82,7 @@ module.exports.updateListing = async (req, res) => {
        editedListing.image={url,filename}
        await editedListing.save();
   }
+
   let imageUrl=editedListing.image.url;
   imageUrl.replace("/upload","/upload/h_300,w_250");
   
