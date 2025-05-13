@@ -6,7 +6,7 @@ if(process.env.NODE_ENV!="production"){
 }
 
 async function main(){
-     const url=process.env.ATLAS_DB;
+     const url="mongodb://127.0.0.1:27017/nexterra";
    await mongoose.connect(url);
 }
 

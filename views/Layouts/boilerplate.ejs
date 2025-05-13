@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,27 +26,36 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
       rel="stylesheet"
     />
-
   </head>
-  <body class="bg-light font-inter" style="height: 100vh;">
-    <%- include('../includes/Navbar.ejs') %>
-      <div class="mt-2 text-center">
-  <% if (success && success.length > 0) { %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <h5 class="mb-0"><%= success %></h5>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <body class="bg-light font-inter" style="height: 100vh">
+    <div class="fixed-top">
+      <%- include('../includes/Navbar.ejs') %>
     </div>
-  <% } %>
-
-  <% if (error && error.length > 0) { %>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <h5 class="mb-0"><%= error %></h5>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="text-center " style="margin-top: 100px;">
+      <% if (success && success.length > 0) { %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <h5 class="mb-0"><%= success %></h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      <% } %> <% if (error && error.length > 0) { %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h5 class="mb-0"><%= error %></h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      <% } %>
     </div>
-  <% } %>
-</div>
     <div class="container">
-      <div ><%- body %></div>
+      <div><%- body %></div>
     </div>
 
     <%- include('../includes/Footer.ejs') %>
