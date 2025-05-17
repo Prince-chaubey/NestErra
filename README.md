@@ -59,4 +59,22 @@ The main goal of NestErra is to serve as a beginner-to-intermediate level full-s
 ---
 
 ## 🗂 Folder Structure
+nesterra/
+├── models/               # MongoDB models
+│   ├── listing.js        # Listing schema
+│   ├── review.js         # Review schema
+│   └── user.js           # User schema
+├── public/               # Static files
+│   ├── stylesheets/      # CSS files
+│   └── images/           # Default images
+├── routes/               # Express routes
+│   ├── listings.js       # Listing routes
+│   ├── reviews.js        # Review routes
+│   └── users.js          # User routes
+├── views/               # EJS templates
+│   ├── listings/         # Listing views
+│   ├── partials/         # Reusable components
+│   └── auth/             # Authentication views
+├── app.js               # Main application file
+└── package.json         # Project dependencies
 
